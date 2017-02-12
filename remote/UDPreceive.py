@@ -47,6 +47,7 @@ def TurnRight():
 	GPIO.output(motorRB, HIGH) 
 	GPIO.output(motorLF, HIGH) 
 	GPIO.output(motorLB, LOW) 
+	time.sleep(1)
 	return;
 	
 def TurnLeft():
@@ -56,6 +57,7 @@ def TurnLeft():
 	GPIO.output(motorRB, LOW) 
 	GPIO.output(motorLF, LOW) 
 	GPIO.output(motorLB, HIGH)
+	time.sleep(1)
 	return;
 	
 def Forward():
@@ -65,6 +67,7 @@ def Forward():
 	GPIO.output(motorRB, LOW) 
 	GPIO.output(motorLF, HIGH) 
 	GPIO.output(motorLB, LOW) 
+	time.sleep(1)
 	return;
 	
 def Backward():
@@ -74,14 +77,12 @@ def Backward():
 	GPIO.output(motorRB, HIGH) 
 	GPIO.output(motorLF, LOW) 
 	GPIO.output(motorLB, HIGH)
+	time.sleep(1)
 	return;
 
 while True:
 	data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
 	print "received message:", data
-	if(data == "stop"):
-		stop()
-	
 	if(data == "turn right"):
 		TurnRight()
 		
@@ -94,6 +95,9 @@ while True:
 	if(data == "backward"):
 		Backward()
 	
+	if(data == "stop"):
+		stop()
+		
 GPIO.cleanup()
 
 

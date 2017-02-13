@@ -19,11 +19,11 @@ GPIO.setup(motorLF, GPIO.OUT)
 GPIO.setup(motorLB, GPIO.OUT)
 #GPIO.setup(17, GPIO.IN)
 
-GPIO.output(motorRF, LOW) 
-GPIO.output(motorRB, LOW) 
-GPIO.output(motorLF, LOW) 
-GPIO.output(motorLB, LOW) 
-#GPIO.output(15, 1) 
+GPIO.output(motorRF, 0) 
+GPIO.output(motorRB, 0) 
+GPIO.output(motorLF, 0) 
+GPIO.output(motorLB, 0) 
+#GPIO.output(motorRB, 1) 
 
 UDP_IP = "192.168.40.210"
 UDP_PORT = 5005
@@ -34,70 +34,74 @@ sock.bind((UDP_IP, UDP_PORT))
 
 
 def stop():
-	GPIO.output(motorRF, LOW) 
-	GPIO.output(motorRB, LOW) 
-	GPIO.output(motorLF, LOW) 
-	GPIO.output(motorLB, LOW)
+	GPIO.output(motorRF, 0) 
+	GPIO.output(motorRB, 0) 
+	GPIO.output(motorLF, 0) 
+	GPIO.output(motorLB, 0)
 	return; 
 
 def TurnRight():
-	stop()
-	time.sleep(0.01)
-	GPIO.output(motorRF, LOW) 
-	GPIO.output(motorRB, HIGH) 
-	GPIO.output(motorLF, HIGH) 
-	GPIO.output(motorLB, LOW) 
-	time.sleep(1)
+	#stop()
+	#time.sleep(0.01)
+	GPIO.output(motorRF, 0) 
+	GPIO.output(motorRB, 1) 
+	GPIO.output(motorLF, 1) 
+	GPIO.output(motorLB, 0) 
+	#time.sleep(10)
 	return;
 	
 def TurnLeft():
-	stop()
-	time.sleep(0.01)
-	GPIO.output(motorRF, High) 
-	GPIO.output(motorRB, LOW) 
-	GPIO.output(motorLF, LOW) 
-	GPIO.output(motorLB, HIGH)
-	time.sleep(1)
+	#stop()
+	#time.sleep(0.01)
+	GPIO.output(motorRF, 1) 
+	GPIO.output(motorRB, 0) 
+	GPIO.output(motorLF, 0) 
+	GPIO.output(motorLB, 1)
+	#time.sleep(10)
 	return;
 	
 def Forward():
-	stop()
-	time.sleep(0.01)
-	GPIO.output(motorRF, HIGH) 
-	GPIO.output(motorRB, LOW) 
-	GPIO.output(motorLF, HIGH) 
-	GPIO.output(motorLB, LOW) 
-	time.sleep(1)
+	#stop()
+	#time.sleep(0.01)
+	GPIO.output(motorRF, 1) 
+	GPIO.output(motorRB, 0) 
+	GPIO.output(motorLF, 1) 
+	GPIO.output(motorLB, 0) 
+	#time.sleep(1)
 	return;
 	
 def Backward():
-	stop()
-	time.sleep(0.01)
-	GPIO.output(motorRF, LOW) 
-	GPIO.output(motorRB, HIGH) 
-	GPIO.output(motorLF, LOW) 
-	GPIO.output(motorLB, HIGH)
-	time.sleep(1)
+	#stop()
+	#time.sleep(0.01)
+	GPIO.output(motorRF, 0) 
+	GPIO.output(motorRB, 1) 
+	GPIO.output(motorLF, 0) 
+	GPIO.output(motorLB, 1)
+	#time.sleep(1)
 	return;
 
 while True:
 	data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-	print "received message:", data
-	if(data == "turn right"):
+	#print "received message:", data
+	if(data == "right"):
 		TurnRight()
+		print("right")
 		
-	if(data == "turn left"):
+	elif(data == "left"):
 		TurnLeft()
+		print("left")
 	
-	if(data == "forward"):
+	elif(data == "forward"):
 		Forward()
 	
-	if(data == "backward"):
+	elif(data == "backward"):
 		Backward()
 	
-	if(data == "stop"):
+	elif(data == "stop"):
 		stop()
+		print("right")
 		
 GPIO.cleanup()
+
 
 

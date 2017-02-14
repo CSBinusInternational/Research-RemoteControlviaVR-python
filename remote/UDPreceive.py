@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO
 import time
 
 #set used pin for motor
-motorRF = 14 
-motorRB = 15
+motorRF = 15 
+motorRB = 14
 motorLF = 17
 motorLB = 18
 
@@ -46,7 +46,7 @@ def TurnRight():
 	GPIO.output(motorRF, 0) 
 	GPIO.output(motorRB, 1) 
 	GPIO.output(motorLF, 1) 
-	GPIO.output(motorLB, 0) 
+	GPIO.output(motorLB, 0)
 	#time.sleep(10)
 	return;
 	
@@ -84,11 +84,13 @@ while True:
 	data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
 	#print "received message:", data
 	if(data == "right"):
-		TurnRight()
+		Forward()
+		#TurnRight()
 		print("right")
 		
 	elif(data == "left"):
-		TurnLeft()
+		Backward()
+		#TurnLeft()
 		print("left")
 	
 	elif(data == "forward"):
